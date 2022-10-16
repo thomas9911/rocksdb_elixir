@@ -1,0 +1,14 @@
+[package]
+name = "rocksdb_elixir"
+version = "0.1.0"
+authors = []
+edition = "2018"
+
+[lib]
+name = "rocksdb_elixir"
+path = "src/lib.rs"
+crate-type = ["cdylib"]
+
+[dependencies]
+rustler = "0.26.0"
+rocksdb = "*"
