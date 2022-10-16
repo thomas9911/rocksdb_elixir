@@ -1,4 +1,4 @@
-# RocksdbElixir
+# RocksDBElixir
 
 **TODO: Add description**
 

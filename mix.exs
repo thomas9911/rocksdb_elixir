@@ -1,4 +1,4 @@
-defmodule RocksdbElixir.MixProject do
+defmodule RocksDBElixir.MixProject do
   use Mix.Project
 
   def project do

@@ -1,4 +1,4 @@
-# NIF for Elixir.RocksdbElixir.Native
+# NIF for Elixir.RocksDBElixir.Native
 
 ## To build the NIF module:
 
@@ -7,7 +7,7 @@
 ## To load the NIF:
 
 ```elixir
-defmodule RocksdbElixir.Native do
+defmodule RocksDBElixir.Native do
   use Rustler, otp_app: :rocksdb_elixir, crate: "rocksdb_elixir"
 
   # When your NIF is loaded, it will override this function.

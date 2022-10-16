@@ -1,35 +1,35 @@
-defmodule RocksdbElixir do
+defmodule RocksDBElixir do
   @moduledoc """
-  Documentation for `RocksdbElixir`.
+  Documentation for `RocksDBElixir`.
 
   ## Example
 
   ```elixir
-  iex> {:ok, conn} = RocksdbElixir.new("test/module_doc")
-  iex> RocksdbElixir.get(conn, "key")
+  iex> {:ok, conn} = RocksDBElixir.new("test/module_doc")
+  iex> RocksDBElixir.get(conn, "key")
   {:ok, nil}
-  iex> {:ok, conn} = RocksdbElixir.put(conn, "key", "value")
-  iex> RocksdbElixir.get(conn, "key")
+  iex> {:ok, conn} = RocksDBElixir.put(conn, "key", "value")
+  iex> RocksDBElixir.get(conn, "key")
   {:ok, "value"}
-  iex> {:ok, conn} = RocksdbElixir.delete(conn, "key")
-  iex> {:ok, _conn} = RocksdbElixir.close(conn)
-  iex> RocksdbElixir.destroy("test/module_doc")
+  iex> {:ok, conn} = RocksDBElixir.delete(conn, "key")
+  iex> {:ok, _conn} = RocksDBElixir.close(conn)
+  iex> RocksDBElixir.destroy("test/module_doc")
   :ok
   ```
   """
 
-  alias RocksdbElixir.Conn
+  alias RocksDBElixir.Conn
 
   ## User interface
 
   @doc "Open a new connection, will create database if it does not exist"
   @spec new(binary) :: {:ok, Conn.t()} | {:error, binary}
-  defdelegate new(path), to: RocksdbElixir.Native
+  defdelegate new(path), to: RocksDBElixir.Native
 
   @doc "Get data from the database"
   @spec get(Conn.t(), term) :: {:ok, term | nil} | {:error, binary}
   def get(conn, key) do
-    case RocksdbElixir.Native.get(conn, key_hash(key)) do
+    case RocksDBElixir.Native.get(conn, key_hash(key)) do
       {:ok, nil} -> {:ok, nil}
       {:ok, data} -> {:ok, to_t(data)}
       err -> err
@@ -39,13 +39,13 @@ defmodule RocksdbElixir do
   @doc "Put data into the database"
   @spec put(Conn.t(), term, term) :: {:ok, Conn.t()} | {:error, binary}
   def put(conn, key, value) do
-    RocksdbElixir.Native.put(conn, key_hash(key), to_b(value))
+    RocksDBElixir.Native.put(conn, key_hash(key), to_b(value))
   end
 
   @doc "Delete data from the database"
   @spec delete(Conn.t(), term) :: {:ok, Conn.t()} | {:error, binary}
   def delete(conn, key) do
-    RocksdbElixir.Native.delete(conn, key_hash(key))
+    RocksDBElixir.Native.delete(conn, key_hash(key))
   end
 
   ## Administation
@@ -54,7 +54,7 @@ defmodule RocksdbElixir do
   @spec close(Conn.t()) :: {:ok, Conn.t()} | {:error, binary}
   def close(conn) do
     # overwriting conn is important
-    {:ok, conn} = RocksdbElixir.Native.close(conn)
+    {:ok, conn} = RocksDBElixir.Native.close(conn)
 
     # force garbage_collect so resource will be cleaned
     true = :erlang.garbage_collect(self())
@@ -66,7 +66,7 @@ defmodule RocksdbElixir do
   @doc "Force flush the database to disk"
   @spec flush(Conn.t()) :: :ok | {:error, binary}
   def flush(conn) do
-    case RocksdbElixir.Native.flush(conn) do
+    case RocksDBElixir.Native.flush(conn) do
       {:ok, {}} -> :ok
       e -> e
     end
@@ -77,7 +77,7 @@ defmodule RocksdbElixir do
   """
   @spec destroy(binary) :: :ok | {:error, binary}
   def destroy(path) do
-    case RocksdbElixir.Native.destroy(path) do
+    case RocksDBElixir.Native.destroy(path) do
       {:ok, {}} -> :ok
       e -> e
     end

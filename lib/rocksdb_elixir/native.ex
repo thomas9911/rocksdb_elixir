@@ -1,4 +1,4 @@
-defmodule RocksdbElixir.Native do
+defmodule RocksDBElixir.Native do
   @moduledoc "Module that contains the NIFs"
   use Rustler, otp_app: :rocksdb_elixir, crate: "rocksdb_elixir"
 

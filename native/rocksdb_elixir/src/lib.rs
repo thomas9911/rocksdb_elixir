@@ -5,7 +5,7 @@ type Error = String;
 type Result = std::result::Result<RocksDBConnection, Error>;
 
 #[derive(NifStruct)]
-#[module = "RocksdbElixir.Conn"]
+#[module = "RocksDBElixir.Conn"]
 struct RocksDBConnection {
     path: String,
     resource: Option<ResourceArc<RocksDbResource>>,
@@ -115,7 +115,7 @@ fn load(env: Env, _: rustler::Term) -> bool {
 }
 
 rustler::init!(
-    "Elixir.RocksdbElixir.Native",
+    "Elixir.RocksDBElixir.Native",
     [new, flush, destroy, close, put, get, delete],
     load = load
 );

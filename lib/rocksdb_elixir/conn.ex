@@ -1,4 +1,4 @@
-defmodule RocksdbElixir.Conn do
+defmodule RocksDBElixir.Conn do
   @moduledoc "Module that holds the connection to the database"
   defstruct [:resource, :path]
 
